@@ -1,28 +1,26 @@
-def partition(sortArray, low, high):
-    index = low-1
-    pivot = sortArray[high]
+#use over mergesort when sorting done in memory
 
-    for j in range(low, high):
-        if sortArray[j] <= pivot:
+def getPartitionIndex(arr, l, r):
+    index = l - 1
+    pivotVal = arr[r]
+    for i in range(l, r):
+        if arr[i] <= pivotVal:
             index = index + 1
-            temp = sortArray[j]
-            sortArray[j] = sortArray[index]
-            sortArray[index] = temp
-        
+            temp = arr[index]
+            arr[index] = arr[i]
+            arr[i] = temp
 
     index = index + 1
-    temp = sortArray[index]
-    sortArray[index] = sortArray[high]
-    sortArray[high] = temp
+    arr[r] = arr[index]
+    arr[index] = pivotVal
     return index
 
-def quickSort(sortArray, low, high):
-    if (low < high):
-        pIndex = partition(sortArray, low, high)
-        quickSort(sortArray, low, pIndex-1)
-        quickSort(sortArray, pIndex+1, high)
+def quickSort(arr, l, r):
+    if l < r:
+        pIndex = getPartitionIndex(arr, l, r)
+        quickSort(arr, l, pIndex - 1)
+        quickSort(arr, pIndex+1, r)
 
-sortArray = [10, 7, 8, 9, 1, 5]
-quickSort(sortArray, 0, len(sortArray)-1)
-for element in sortArray:
-    print(element)
+sortArray = [8, 2, 17, 14, 99, 44, 20]
+quickSort(sortArray, 0, len(sortArray) - 1)
+print(sortArray)
